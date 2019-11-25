@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="com.jaspersoft.studio.model.image.command.dialog.ImageCreationDialog">
+		<item key="dialogX" value="1280"/>
+		<item key="dialogY" value="-1324"/>
+		<item key="dialogWidth" value="753"/>
+		<item key="dialogHeight" value="727"/>
+		<item key="DIALOG_X_ORIGIN" value="990"/>
+		<item key="DIALOG_Y_ORIGIN" value="252"/>
+		<item key="DIALOG_WIDTH" value="753"/>
+		<item key="DIALOG_HEIGHT" value="727"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="com.jaspersoft.studio.property.descriptor.expression.dialog.JRExpressionEditor">
+		<item key="dialogX" value="585"/>
+		<item key="dialogY" value="57"/>
+		<item key="dialogWidth" value="750"/>
+		<item key="dialogHeight" value="680"/>
+		<item key="DIALOG_X_ORIGIN" value="595"/>
+		<item key="DIALOG_Y_ORIGIN" value="57"/>
+		<item key="DIALOG_WIDTH" value="750"/>
+		<item key="DIALOG_HEIGHT" value="680"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>
