@@ -17,5 +17,4 @@ public class AlunoDTO {
 	private String cpf;
 	private String idade;
 	private List<BoletimDTO> boletimDTO;
-	
 }

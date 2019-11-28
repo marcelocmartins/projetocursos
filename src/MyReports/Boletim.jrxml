@@ -13,11 +13,12 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="id_alunos" class="java.lang.String"/>
+	<parameter name="id_alunos" class="java.lang.Integer"/>
 	<parameter name="nome" class="java.lang.String"/>
 	<parameter name="idade" class="java.lang.String"/>
-	<parameter name="id_turma" class="java.lang.String"/>
-	<parameter name="nota" class="java.lang.String"/>
+	<parameter name="id_turma" class="java.lang.Integer"/>
+	<parameter name="nota" class="java.lang.Float"/>
+	<parameter name="cherry" class="java.lang.Object"/>
 	<queryString language="SQL">
 		<![CDATA[select * from boletim bo
 inner join alunos al
@@ -46,7 +47,7 @@ where al.id_alunos = 2]]>
 		<band height="132" splitType="Stretch">
 			<image>
 				<reportElement x="456" y="0" width="99" height="132" uuid="97705585-a0b5-4ec7-86f3-ae10c220e6af"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{cherry}]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="451" height="95" backcolor="#000000" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>

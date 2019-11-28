@@ -1,17 +1,21 @@
 package br.com.hbsis.projetocursos.service;
 
-import br.com.hbsis.projetocursos.entity.Aluno;
 import br.com.hbsis.projetocursos.entity.AlunoDTO;
 import br.com.hbsis.projetocursos.entity.BoletimDTO;
 import net.sf.jasperreports.engine.*;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
+import java.io.*;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class JasperServiceImpl implements JasperService {
 
     private final BoletimService boletimService;
@@ -27,33 +31,36 @@ public class JasperServiceImpl implements JasperService {
     @Override
     public void generateBoletim(HttpServletResponse response, int theId) throws Exception {
 
-        // Parameters for report
         Map<String, Object> parameters = new HashMap<String, Object>();
         AlunoDTO aluno = alunoService.findAlunoById(theId);
         List<BoletimDTO> boletim = boletimService.findBoletimByAlunoId(theId);
 
         parameters.put("id_alunos", aluno.getId());
-        parameters.put("nome", aluno.getNome());
+        parameters.put("nome", String.valueOf(aluno.getNome()));
         parameters.put("idade", aluno.getIdade());
-        parameters.put("id_turma", "Turma Teste");
-        parameters.put("nota", boletim.get(0).getNota());
+        parameters.put("id_turma", 1);
+        parameters.put("nota", String.valueOf(boletim.get(0).getNota()));
 
+        InputStream cherryInputStream = JasperServiceImpl.class.getResourceAsStream("/jasper/cherry.jpg");
 
-        // Compile jrxml file
-        JasperReport jasperReport = JasperCompileManager.compileReport("Boletim.jasper");
+        parameters.put("cherry", IOUtils.toByteArray(cherryInputStream));
 
-        // Empty data source
+        InputStream boletinInputStream = JasperServiceImpl.class.getResourceAsStream("/jasper/Boletim.jasper");
+
         JRDataSource jrDataSource = new JREmptyDataSource();
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(boletinInputStream, parameters, jrDataSource);
 
-        JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\marcelo.martins\\Documents\\Java_codigos\\PROJETOS\\projeto cursos\\BoletinsGerados");
+        byte[] reportToPdf = JasperExportManager.exportReportToPdf(jasperPrint);
 
-        // create a temp PDF file
-        File boletimPdf = File.createTempFile("Boletim", ".pdf");
+        response.setContentType("application/pdf"); // Tipo do Conteúdo
+        response.setContentLength(reportToPdf.length); // Opcional
+        response.setHeader("Content-Disposition", "attachment; filename=" + aluno.getNome() + "-boletim.pdf");
 
-        // initiate a FileOutputStream
-
+        OutputStream output = response.getOutputStream();
+        output.write(reportToPdf);
+        output.flush();
+        output.close();
     }
 }
 
