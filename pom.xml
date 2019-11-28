@@ -9,6 +9,7 @@
 		<relativePath/> 
 		<!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>br.com.hbsis</groupId>
 	<artifactId>projetocursos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -69,9 +70,16 @@
 		    <artifactId>lombok</artifactId>
 		    <version>1.18.10</version>
 		</dependency>
-		
-		
-		
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+
+
+
 	</dependencies>
 
 	<build>

@@ -3,14 +3,14 @@ package br.com.hbsis.projetocursos.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import br.com.hbsis.projetocursos.entity.Aluno;
 import br.com.hbsis.projetocursos.entity.AlunoDTO;
 import br.com.hbsis.projetocursos.entity.Boletim;
 import br.com.hbsis.projetocursos.service.AlunoService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
@@ -30,13 +30,15 @@ public class AlunoRestController {
 		return alunoService.findAll();
 	}
 	
-	@GetMapping("/boletim/{alunoId}")
-	public List<AlunoDTO> GenerateBoletim() {
-		return alunoService.findAll();
+//	@GetMapping("/boletim/{alunoId}")
+//	public void GenerateBoletim(HttpServletRequest request, HttpServletResponse response) {
+//		return alunoService.findAll();
+//	}
+
+	@GetMapping("/aluno/{alunoId}")
+	public AlunoDTO findAlunoById(@PathVariable int alunoId) {
+		return alunoService.findAlunoById(alunoId);
 	}
-	
-	
-	
 }
 
 

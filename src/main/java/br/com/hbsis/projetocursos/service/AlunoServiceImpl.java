@@ -30,50 +30,63 @@ public class AlunoServiceImpl implements AlunoService
 	public List<AlunoDTO> findAll() 
 	{
 		List<AlunoDTO> listaDeAlunos = new ArrayList<>();
-		List<BoletimDTO> listaDeBoletins = new ArrayList<>();
 		List<Aluno> alunos = alunoRepository.findAll();
-		
-	
-		
+
 		for(Aluno aluno : alunos ) {
-			
-			int theId = aluno.getIdAlunos();
-			AlunoDTO alunoDto = AlunoDTO.builder()
-			.id(aluno.getIdAlunos())
-			.cpf(aluno.getCpf())
-			.nome(aluno.getNome())
-			.idade(aluno.getIdade())
-			.boletimDTO (boletimRepository.findBoletimByAlunoId(theId))
-			.build();
-		
-			
-			
+			AlunoDTO alunoDto = transformAlunoIntoPojo(aluno);
 			listaDeAlunos.add(alunoDto);
 		}
-		
+
 		return listaDeAlunos;
 	}
-	
-	
-	// OS MÉTODOS ABAIXO AINDA NÃO ESTÃO EM FUNCIONAMENTO
-	
+
+	public AlunoDTO findAlunoById(int theAlunoId) {
+
+		Optional<Aluno> optionalAluno = alunoRepository.findById(theAlunoId);
+
+		if(!optionalAluno.isPresent()) {
+			throw new RuntimeException("ERRO: Aluno não encontrado");
+		}
+
+		Aluno aluno = optionalAluno.get();
+
+		return transformAlunoIntoPojo(aluno);
+	}
+
+
+	public AlunoDTO transformAlunoIntoPojo(Aluno aluno) {
+
+		int theId = aluno.getIdAlunos();
+
+		return AlunoDTO.builder()
+				.id(aluno.getIdAlunos())
+				.cpf(aluno.getCpf())
+				.nome(aluno.getNome())
+				.idade(aluno.getIdade())
+				.boletimDTO(boletimRepository.findBoletimByAlunoId(theId))
+				.build();
+	}
+
 	@Override
-	public Aluno findById(int theId) 
+	public Aluno findById(int theId)
 	{
 		Optional<Aluno> result = alunoRepository.findById(theId);
 		Aluno aluno = null;
-		
+
 		if(result.isPresent())
 		{
 			return aluno = result.get();
 		}
-		
+
 		else
 		{
 			throw new RuntimeException("Não foi possível achar o aluno do ID: " + theId);
 		}
 	}
 
+
+
+	// OS MÉTODOS ABAIXO AINDA NÃO ESTÃO EM FUNCIONAMENTO
 	@Override
 	public void save(Aluno aluno) 
 	{

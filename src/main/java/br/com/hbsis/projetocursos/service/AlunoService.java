@@ -15,4 +15,6 @@ public interface AlunoService
 	public void save(Aluno theEmployee);
 	
 	public void deleteById(int theId);
+
+	public AlunoDTO findAlunoById(int theAlunoId);
 }
