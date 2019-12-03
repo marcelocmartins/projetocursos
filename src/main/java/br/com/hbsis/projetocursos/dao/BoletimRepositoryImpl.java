@@ -25,7 +25,18 @@ public class BoletimRepositoryImpl implements BoletimRepository {
 	public BoletimRepositoryImpl(EntityManager theEntityManager) {
 		this.entityManager = theEntityManager;
 	}
-	
+
+	@Override
+	public List<Boletim> findBoletimByAlunoId(int alunoId) {
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		Query theQuery = currentSession.createQuery("from Boletim where aluno =" + alunoId);
+		List<Boletim> boletins = new ArrayList<Boletim>(theQuery.list());
+		return boletins;
+	}
+
+
+
 	@Override
 	public List<Boletim> findAll() {
 		// TODO Auto-generated method stub
@@ -169,29 +180,4 @@ public class BoletimRepositoryImpl implements BoletimRepository {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
-	
-	
-	public List<BoletimDTO> findBoletimByAlunoId(int alunoId) {
-		Session currentSession = entityManager.unwrap(Session.class);
-		
-		Query theQuery = currentSession.createQuery("from Boletim where aluno =" + alunoId);
-		List<Boletim> boletins = new ArrayList<Boletim>(theQuery.list());
-		
-		List<BoletimDTO> listaDeBoletins = new ArrayList<>();
-		
-		for(Boletim boletim : boletins) {
-			BoletimDTO boletimDTO = BoletimDTO.builder()
-			.id(boletim.getIdBoletim())
-			.nota(boletim.getNota())
-			.build();
-			
-			listaDeBoletins.add(boletimDTO);
-		}
-		
-		return listaDeBoletins;
-		
-	}
-
 }

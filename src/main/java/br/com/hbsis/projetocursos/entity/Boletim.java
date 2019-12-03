@@ -14,12 +14,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name="Boletim")
 public class Boletim 
@@ -43,19 +47,7 @@ public class Boletim
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinColumn(name="id_alunos")
 	private Aluno aluno;
-	
-	public Boletim() {}
-	
-	@Autowired
-	public Boletim(float nota, Turma turma, Professor professor, Aluno aluno) 
-	{
-		this.nota = nota;
-		this.professor = professor;
-		this.aluno = aluno;
-	}
-	
-	// add a convenience method add
-	
+
 		public void addBoletimTurma(Turma theTurma)
 		{
 			if(turma == null)
@@ -65,12 +57,4 @@ public class Boletim
 			
 			turma.add(theTurma);   
 		}
-		
-		public void gerarBoletim(Aluno aluno, Turma turma)
-		{
-			
-		}
-		
-		
-	
 }

@@ -2,29 +2,17 @@ package br.com.hbsis.projetocursos.service;
 
 import java.io.File;
 import java.io.OutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import br.com.hbsis.projetocursos.entity.BoletimDTO;
+import br.com.hbsis.projetocursos.entity.Boletim;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.hbsis.projetocursos.dao.BoletimRepositoryImpl;
-import br.com.hbsis.projetocursos.entity.AlunoDTO;
-import br.com.hbsis.projetocursos.entity.Boletim;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -59,8 +47,22 @@ public class BoletimServiceImpl implements BoletimService{
 	}
 
 	@Override
-	public List<BoletimDTO> findBoletimByAlunoId(int alunoId) {
+	public List<Boletim> findBoletimByAlunoId(int alunoId) {
 		return boletimRepository.findBoletimByAlunoId(alunoId);
+	}
+
+	@Override
+	public List<String> generateNotasForBoletim (List<Boletim> notasBoletins) {
+
+		List<String> notas = new ArrayList<>();
+		for(Boletim boletim : notasBoletins) {
+			String nota = String.valueOf(boletim.getNota());
+			notas.add(nota);
+		}
+
+		// LEMBRE-SE DE TROCAR OS ARRAYLISTS
+
+		return notas;
 	}
 
 

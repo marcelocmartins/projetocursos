@@ -7,11 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name="Professor")
 public class Professor 
@@ -23,13 +26,4 @@ public class Professor
 	
 	@Column(name="nome_professor")
 	private String nomeProfessor;
-	
-	public Professor() {}
-
-	public Professor(String nomeProfessor) 
-	{
-		this.nomeProfessor = nomeProfessor;
-	}
-	
-	
 }

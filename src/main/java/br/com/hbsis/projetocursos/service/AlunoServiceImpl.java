@@ -3,44 +3,53 @@ package br.com.hbsis.projetocursos.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import br.com.hbsis.projetocursos.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.hbsis.projetocursos.dao.AlunoRepository;
 import br.com.hbsis.projetocursos.dao.BoletimRepositoryImpl;
-import br.com.hbsis.projetocursos.entity.Aluno;
-import br.com.hbsis.projetocursos.entity.AlunoDTO;
-import br.com.hbsis.projetocursos.entity.BoletimDTO;
 
 @Service
-public class AlunoServiceImpl implements AlunoService 
-{
+public class AlunoServiceImpl implements AlunoService {
 	private AlunoRepository alunoRepository;
-	private BoletimRepositoryImpl boletimRepository;
+	private BoletimService boletimService;
+	private TurmaService turmaService;
+
 	
 	@Autowired
-	public AlunoServiceImpl(AlunoRepository theAlunoRepository, BoletimRepositoryImpl theBoletimRepository) 
-	{
+	public AlunoServiceImpl(AlunoRepository theAlunoRepository, BoletimService theBoletimRepository, TurmaService theTurmaService) {
 		alunoRepository = theAlunoRepository;
-		boletimRepository = theBoletimRepository;
+		boletimService = theBoletimRepository;
+		turmaService = theTurmaService;
 		
 	}	
-	
+
+	// Listar os alunos na tela para Boletim
 	@Override
-	public List<AlunoDTO> findAll() 
-	{
-		List<AlunoDTO> listaDeAlunos = new ArrayList<>();
+	public List<AlunoListagemDTO> findAll() {
+		List<AlunoListagemDTO> listaDeAlunos = new ArrayList<>();
 		List<Aluno> alunos = alunoRepository.findAll();
 
+
 		for(Aluno aluno : alunos ) {
-			AlunoDTO alunoDto = transformAlunoIntoPojo(aluno);
-			listaDeAlunos.add(alunoDto);
+			int idAlunoBoletim = aluno.getIdAlunos();
+			String nomeTurma = aluno.getTurma().getNomeTurma();
+			List<Boletim> boletins = boletimService.findBoletimByAlunoId(idAlunoBoletim);
+			List<String> notas = boletimService.generateNotasForBoletim(boletins);
+
+			AlunoListagemDTO alunoListagemDto = new AlunoListagemDTO().transformAlunoIntoAlunoListagem(aluno, nomeTurma, notas);
+			listaDeAlunos.add(alunoListagemDto);
 		}
 
 		return listaDeAlunos;
 	}
 
-	public AlunoDTO findAlunoById(int theAlunoId) {
+
+	// Recebe um ID e retorna um AlunoDTO
+	@Override
+	public AlunoDTO findAlunoDTOById(int theAlunoId) {
 
 		Optional<Aluno> optionalAluno = alunoRepository.findById(theAlunoId);
 
@@ -49,56 +58,71 @@ public class AlunoServiceImpl implements AlunoService
 		}
 
 		Aluno aluno = optionalAluno.get();
+		AlunoDTO alunoDTO = new AlunoDTO().transformAlunoIntoAlunoDTO(aluno, aluno.getTurma());
 
-		return transformAlunoIntoPojo(aluno);
-	}
-
-
-	public AlunoDTO transformAlunoIntoPojo(Aluno aluno) {
-
-		int theId = aluno.getIdAlunos();
-
-		return AlunoDTO.builder()
-				.id(aluno.getIdAlunos())
-				.cpf(aluno.getCpf())
-				.nome(aluno.getNome())
-				.idade(aluno.getIdade())
-				.boletimDTO(boletimRepository.findBoletimByAlunoId(theId))
-				.build();
+		return alunoDTO;
 	}
 
 	@Override
-	public Aluno findById(int theId)
-	{
+	public AlunoListagemDTO findAlunoListagembyId(int alunoId) {
+		Aluno theAluno = findById(alunoId);
+		String theTurma = theAluno.getTurma().getNomeTurma();
+		List<Boletim> boletins = boletimService.findBoletimByAlunoId(alunoId);
+		List<String> notas = boletimService.generateNotasForBoletim(boletins);
+		AlunoListagemDTO alunoListagemDTO = new AlunoListagemDTO().transformAlunoIntoAlunoListagem(theAluno, theTurma, notas);
+
+		return alunoListagemDTO;
+	}
+
+
+
+
+	@Override
+	public Aluno findById(int theId) {
 		Optional<Aluno> result = alunoRepository.findById(theId);
 		Aluno aluno = null;
 
-		if(result.isPresent())
-		{
+		if(result.isPresent()) {
 			return aluno = result.get();
 		}
 
-		else
-		{
+		else {
 			throw new RuntimeException("Não foi possível achar o aluno do ID: " + theId);
 		}
 	}
 
-
-
 	// OS MÉTODOS ABAIXO AINDA NÃO ESTÃO EM FUNCIONAMENTO
 	@Override
-	public void save(Aluno aluno) 
+	public void save(Aluno aluno)
 	{
 		alunoRepository.save(aluno);
 	}
 
 	@Override
-	public void deleteById(int theId) 
+	public void deleteById(int theId)
 	{
 		alunoRepository.deleteById(theId);
 	}
-	
+
+	@Override
+	public void cadastraAluno(AlunoDTO theAlunoDTO) {
+
+		TurmaDTO turmaDTO = theAlunoDTO.getTurmaDTO();
+
+		if(turmaDTO != null) {
+			int theTurmaId = turmaDTO.getId();
+			Turma theTurma = turmaService.findById(theTurmaId);
+			int quantidadeAlunosTurma = theTurma.getNumeroAlunos() + 1;
+			Turma turma = turmaDTO.transformTurmaDTOIntoTurma(turmaDTO, quantidadeAlunosTurma);
+			Aluno aluno = theAlunoDTO.transformAlunoDTOIntoAluno(theAlunoDTO, turma);
+			alunoRepository.save(aluno);
+		}
+
+		else {
+			throw new RuntimeException("Não foi possível encontrar a tuma: " + turmaDTO.getNomeTurma());
+		}
+	}
+
 
 
 }

@@ -15,8 +15,8 @@
 	</style>
 	<parameter name="id_alunos" class="java.lang.Integer"/>
 	<parameter name="nome" class="java.lang.String"/>
-	<parameter name="idade" class="java.lang.String"/>
-	<parameter name="id_turma" class="java.lang.Integer"/>
+	<parameter name="idade" class="java.lang.Integer"/>
+	<parameter name="id_turma" class="java.lang.String"/>
 	<parameter name="nota" class="java.lang.Float"/>
 	<parameter name="cherry" class="java.lang.Object"/>
 	<queryString language="SQL">

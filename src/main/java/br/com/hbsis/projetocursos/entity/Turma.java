@@ -15,13 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name="Turma")
 public class Turma 
@@ -40,33 +42,8 @@ public class Turma
 	@Column(name="numero_alunos")
 	private int numeroAlunos;
 	
-	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	@OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinColumn(name="id_professor")
-	private List<Professor> professor;
-	
-	public Turma() {}
-	
-	@Autowired
-	public Turma(String nomeTurma, String materia, int numeroAlunos, Professor professor) 
-	{
-		this.nomeTurma = nomeTurma;
-		this.materia = materia;
-		this.numeroAlunos = numeroAlunos;
-	}
-	
-	
-	
-	// add a convenience method add
-	
-	public void addProfessorATurma(Professor theProfessor)
-	{
-		if(professor == null)
-		{
-			professor = new ArrayList<Professor>();
-		}
-		
-		professor.add(theProfessor);   
-	}
-	
+	private Professor professor;
 
 }

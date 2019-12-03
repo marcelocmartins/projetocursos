@@ -4,17 +4,18 @@ import java.util.List;
 
 import br.com.hbsis.projetocursos.entity.Aluno;
 import br.com.hbsis.projetocursos.entity.AlunoDTO;
+import br.com.hbsis.projetocursos.entity.AlunoListagemDTO;
 
 
 public interface AlunoService 
 {
-	public List<AlunoDTO> findAll();
-	
-	public Aluno findById(int theId);
-	
-	public void save(Aluno theEmployee);
-	
-	public void deleteById(int theId);
+	public List<AlunoListagemDTO> findAll();
 
-	public AlunoDTO findAlunoById(int theAlunoId);
+    AlunoListagemDTO findAlunoListagembyId(int alunoId);
+
+    public Aluno findById(int theId);
+	public void save(Aluno theAluno);
+	public void deleteById(int theId);
+	public AlunoDTO findAlunoDTOById(int theAlunoId);
+	public void cadastraAluno(AlunoDTO theAluno);
 }

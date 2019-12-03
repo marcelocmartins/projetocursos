@@ -10,6 +10,7 @@ import br.com.hbsis.projetocursos.entity.BoletimDTO;
 @Repository
 public interface BoletimRepository extends JpaRepository<Boletim, Integer> 
 {
-	public List<BoletimDTO> findBoletimByAlunoId(int alunoId);
+	public List<Boletim> findBoletimByAlunoId(int alunoId);
+
 
 }
