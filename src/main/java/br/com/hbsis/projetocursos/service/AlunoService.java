@@ -15,7 +15,8 @@ public interface AlunoService
 
     public Aluno findById(int theId);
 	public void save(Aluno theAluno);
-	public void deleteById(int theId);
 	public AlunoDTO findAlunoDTOById(int theAlunoId);
 	public void cadastraAluno(AlunoDTO theAluno);
+	public void deletaAluno(int alunoId);
+	public AlunoDTO atualizaAluno(AlunoDTO theAluno);
 }

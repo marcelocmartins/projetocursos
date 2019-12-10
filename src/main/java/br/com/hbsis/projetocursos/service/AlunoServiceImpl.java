@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import br.com.hbsis.projetocursos.dao.AlunoRepository;
 import br.com.hbsis.projetocursos.dao.BoletimRepositoryImpl;
 
+import javax.swing.text.html.Option;
+
 @Service
 public class AlunoServiceImpl implements AlunoService {
 	private AlunoRepository alunoRepository;
@@ -91,37 +93,41 @@ public class AlunoServiceImpl implements AlunoService {
 		}
 	}
 
-	// OS MÉTODOS ABAIXO AINDA NÃO ESTÃO EM FUNCIONAMENTO
-	@Override
-	public void save(Aluno aluno)
-	{
-		alunoRepository.save(aluno);
-	}
-
-	@Override
-	public void deleteById(int theId)
-	{
-		alunoRepository.deleteById(theId);
-	}
-
 	@Override
 	public void cadastraAluno(AlunoDTO theAlunoDTO) {
 
-		TurmaDTO turmaDTO = theAlunoDTO.getTurmaDTO();
-
-		if(turmaDTO != null) {
-			int theTurmaId = turmaDTO.getId();
-			Turma theTurma = turmaService.findById(theTurmaId);
-			int quantidadeAlunosTurma = theTurma.getNumeroAlunos() + 1;
-			Turma turma = turmaDTO.transformTurmaDTOIntoTurma(turmaDTO, quantidadeAlunosTurma);
-			Aluno aluno = theAlunoDTO.transformAlunoDTOIntoAluno(theAlunoDTO, turma);
-			alunoRepository.save(aluno);
-		}
-
-		else {
-			throw new RuntimeException("Não foi possível encontrar a tuma: " + turmaDTO.getNomeTurma());
-		}
+		Turma theTurma = turmaService.findById(theAlunoDTO.getTurmaDTO());
+		Aluno theAluno = theAlunoDTO.transformAlunoDTOIntoAluno(theAlunoDTO, theTurma);
+		int quantidadeAlunosTurma = theTurma.getNumeroAlunos() + 1;
+		theTurma.setNumeroAlunos(quantidadeAlunosTurma);
+		alunoRepository.save(theAluno);
 	}
+
+	@Override
+	public void deletaAluno(int alunoId) {
+		Aluno aluno = findById(alunoId);
+		alunoRepository.delete(aluno);
+//		return "vaca Aluno com o id: " + alunoId + " foi deletado";
+	}
+
+	@Override
+	public AlunoDTO atualizaAluno(AlunoDTO theAlunoDTO) {
+		Turma theTurma = turmaService.findById(theAlunoDTO.getTurmaDTO());
+		Aluno theAluno = theAlunoDTO.transformAlunoDTOIntoAluno(theAlunoDTO, theTurma);
+		theAluno.setIdAlunos(theAlunoDTO.getId());
+		alunoRepository.save(theAluno);
+		AlunoDTO alunoDTO = theAlunoDTO.transformAlunoIntoAlunoDTO(theAluno, theTurma);
+		return alunoDTO;
+	}
+
+	@Override
+	public void save(Aluno aluno) {alunoRepository.save(aluno);
+	}
+
+	// OS MÉTODOS ABAIXO AINDA NÃO ESTÃO EM FUNCIONAMENTO
+
+
+
 
 
 

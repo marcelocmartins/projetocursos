@@ -16,17 +16,17 @@ public class AlunoDTO {
 	private String nome;
 	private String cpf;
 	private Integer idade;
-	private TurmaDTO turmaDTO;
+	private Integer turmaDTO;
 
 
-	public Aluno transformAlunoDTOIntoAluno(AlunoDTO alunoListagemDTO, Turma turma) {
+	public Aluno transformAlunoDTOIntoAluno(AlunoDTO alunoDTO, Turma turma) {
 
 		return Aluno.builder()
-				.cpf(alunoListagemDTO.getCpf())
-				.nome(alunoListagemDTO.getNome())
-				.idade(alunoListagemDTO.getIdade())
-				.turma(turma)
-				.build();
+				.cpf(alunoDTO.getCpf())
+                .nome(alunoDTO.getNome())
+                .idade(alunoDTO.getIdade())
+                .turma(turma)
+                .build();
 
 	}
 
@@ -39,7 +39,7 @@ public class AlunoDTO {
 				.cpf(aluno.getCpf())
 				.nome(aluno.getNome())
 				.idade(aluno.getIdade())
-				.turmaDTO(theTurmaDTO)
+				.turmaDTO(theTurmaDTO.getId())
 				.build();
 	}
 

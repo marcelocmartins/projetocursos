@@ -26,7 +26,7 @@ public class TurmaServiceImpl implements TurmaService {
 
         for(Turma turma : turmas) {
             TurmaDTO turmaDTO = new TurmaDTO();
-            turmaDTO.transformTurmaIntoPojo(turma);
+            turmaDTO = turmaDTO.transformTurmaIntoPojo(turma);
             listaDeTurmas.add(turmaDTO);
         }
 

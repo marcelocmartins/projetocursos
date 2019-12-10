@@ -3,6 +3,8 @@ package br.com.hbsis.projetocursos.service;
 import br.com.hbsis.projetocursos.entity.*;
 import net.sf.jasperreports.engine.*;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.castor.core.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +47,27 @@ public class JasperServiceImpl implements JasperService {
         parameters.put("nome", alunoListagemDTO.getNome());
         parameters.put("idade", alunoListagemDTO.getIdade());
         parameters.put("id_turma", alunoListagemDTO.getTurma());
-        parameters.put("nota", alunoListagemDTO.getBoletim()); // Aqui o retorno é uma lista, no template é apenas um campo String
+
+
+        int i = 0;
+        for(String nota : notas) {
+
+            if (StringUtils.isEmpty(nota)) {
+                parameters.put("nota" + i, "0");
+            }
+            parameters.put("nota" + i, nota);
+            i++;
+        }
+        if(notas.size() == 1) {
+            if(notas.size() == 2) {
+                parameters.put("nota1", "0");
+            }
+            parameters.put("nota1", "0");
+            parameters.put("nota2", "0");
+        }
+
+
+
 
         // Cria um input stream para inserir a imagem no pdf como um resource
         InputStream cherryInputStream = JasperServiceImpl.class.getResourceAsStream("/jasper/cherry.jpg");
