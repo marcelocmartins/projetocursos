@@ -37,7 +37,8 @@ public class JasperServiceImpl implements JasperService {
         Aluno theAluno = alunoService.findById(theId);
         List<Boletim> boletim = boletimService.findBoletimByAlunoId(theId);
         List<String> notas = boletimService.generateNotasForBoletim(boletim);
-        AlunoListagemDTO alunoListagemDTO = new AlunoListagemDTO().transformAlunoIntoAlunoListagem(theAluno, theAluno.getTurma().getNomeTurma(), notas);
+        Integer theTurmaId = theAluno.getTurma().getIdTurma();
+        AlunoListagemDTO alunoListagemDTO = new AlunoListagemDTO().transformAlunoIntoAlunoListagem(theAluno, theAluno.getTurma().getNomeTurma(),theTurmaId, notas);
 
 
 

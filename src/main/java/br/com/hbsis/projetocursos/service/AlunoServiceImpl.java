@@ -38,10 +38,11 @@ public class AlunoServiceImpl implements AlunoService {
 		for(Aluno aluno : alunos ) {
 			int idAlunoBoletim = aluno.getIdAlunos();
 			String nomeTurma = aluno.getTurma().getNomeTurma();
+			Integer theTurmaId = aluno.getTurma().getIdTurma();
 			List<Boletim> boletins = boletimService.findBoletimByAlunoId(idAlunoBoletim);
 			List<String> notas = boletimService.generateNotasForBoletim(boletins);
 
-			AlunoListagemDTO alunoListagemDto = new AlunoListagemDTO().transformAlunoIntoAlunoListagem(aluno, nomeTurma, notas);
+			AlunoListagemDTO alunoListagemDto = new AlunoListagemDTO().transformAlunoIntoAlunoListagem(aluno, nomeTurma, theTurmaId, notas);
 			listaDeAlunos.add(alunoListagemDto);
 		}
 
@@ -69,9 +70,10 @@ public class AlunoServiceImpl implements AlunoService {
 	public AlunoListagemDTO findAlunoListagembyId(int alunoId) {
 		Aluno theAluno = findById(alunoId);
 		String theTurma = theAluno.getTurma().getNomeTurma();
+		Integer theTurmaId = theAluno.getTurma().getIdTurma();
 		List<Boletim> boletins = boletimService.findBoletimByAlunoId(alunoId);
 		List<String> notas = boletimService.generateNotasForBoletim(boletins);
-		AlunoListagemDTO alunoListagemDTO = new AlunoListagemDTO().transformAlunoIntoAlunoListagem(theAluno, theTurma, notas);
+		AlunoListagemDTO alunoListagemDTO = new AlunoListagemDTO().transformAlunoIntoAlunoListagem(theAluno, theTurma, theTurmaId, notas);
 
 		return alunoListagemDTO;
 	}
@@ -87,7 +89,6 @@ public class AlunoServiceImpl implements AlunoService {
 		if(result.isPresent()) {
 			return aluno = result.get();
 		}
-
 		else {
 			throw new RuntimeException("Não foi possível achar o aluno do ID: " + theId);
 		}
@@ -113,6 +114,7 @@ public class AlunoServiceImpl implements AlunoService {
 	@Override
 	public AlunoDTO atualizaAluno(AlunoDTO theAlunoDTO) {
 		Turma theTurma = turmaService.findById(theAlunoDTO.getTurmaDTO());
+
 		Aluno theAluno = theAlunoDTO.transformAlunoDTOIntoAluno(theAlunoDTO, theTurma);
 		theAluno.setIdAlunos(theAlunoDTO.getId());
 		alunoRepository.save(theAluno);

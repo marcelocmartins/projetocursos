@@ -17,9 +17,10 @@ public class AlunoListagemDTO {
 	private String cpf;
 	private Integer idade;
 	private String turma;
+	private Integer idTurma;
 	private List<String> boletim;
 
-	public AlunoListagemDTO transformAlunoIntoAlunoListagem(Aluno aluno, String turma, List<String> boletim) {
+	public AlunoListagemDTO transformAlunoIntoAlunoListagem(Aluno aluno, String turma, Integer turmaId, List<String> boletim) {
 
 		return AlunoListagemDTO.builder()
 				.id(aluno.getIdAlunos())
@@ -27,6 +28,7 @@ public class AlunoListagemDTO {
 				.nome(aluno.getNome())
 				.idade(aluno.getIdade())
 				.turma(turma)
+				.idTurma(turmaId)
 				.boletim(boletim)
 				.build();
 	}
