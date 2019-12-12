@@ -1,13 +1,13 @@
 package br.com.hbsis.projetocursos.rest;
 
+import br.com.hbsis.projetocursos.entity.Turma;
 import br.com.hbsis.projetocursos.entity.TurmaDTO;
 import br.com.hbsis.projetocursos.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController
@@ -26,8 +26,21 @@ public class TurmaRestController {
     }
 
     @GetMapping("/turma/{turmaId}")
-        public TurmaDTO findById (@PathVariable int turmaId) {
+    public TurmaDTO findById (@PathVariable int turmaId) {
             return turmaService.findTurmaDTOById(turmaId);
         }
+
+    @PostMapping("/nova-turma")
+    public ResponseEntity cadastrarTurma(@RequestBody TurmaDTO turmaDTO) {
+        turmaDTO.setId(0);
+        turmaService.cadastrarTurma(turmaDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{turmaId}")
+    public ResponseEntity deletaTurma(@PathVariable int turmaId) {
+        turmaService.deleteById(turmaId);
+        return ResponseEntity.ok().build();
+    }
 }
 

@@ -13,4 +13,5 @@ public interface TurmaService {
     public Turma findById(int theId);
     public void save(Turma theTurma);
     public void deleteById(int theId);
+    public void cadastrarTurma(TurmaDTO turmaDTO);
 }

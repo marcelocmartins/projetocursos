@@ -74,5 +74,12 @@ public class TurmaServiceImpl implements TurmaService {
         turmaRepository.deleteById(theId);
     }
 
+    @Override
+    public void cadastrarTurma(TurmaDTO turmaDTO) {
+
+        Turma theTurma = turmaDTO.transformTurmaDTOIntoTurma(turmaDTO, 0);
+        turmaRepository.save(theTurma);
+    }
+
 
 }

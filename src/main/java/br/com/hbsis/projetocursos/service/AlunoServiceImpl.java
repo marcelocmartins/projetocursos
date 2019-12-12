@@ -108,7 +108,6 @@ public class AlunoServiceImpl implements AlunoService {
 	public void deletaAluno(int alunoId) {
 		Aluno aluno = findById(alunoId);
 		alunoRepository.delete(aluno);
-//		return "vaca Aluno com o id: " + alunoId + " foi deletado";
 	}
 
 	@Override
@@ -125,12 +124,4 @@ public class AlunoServiceImpl implements AlunoService {
 	@Override
 	public void save(Aluno aluno) {alunoRepository.save(aluno);
 	}
-
-	// OS MÉTODOS ABAIXO AINDA NÃO ESTÃO EM FUNCIONAMENTO
-
-
-
-
-
-
 }
