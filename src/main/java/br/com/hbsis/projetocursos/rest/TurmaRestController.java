@@ -25,7 +25,7 @@ public class TurmaRestController {
         return turmaService.findAll();
     }
 
-    @GetMapping("/turma/{turmaId}")
+    @GetMapping("/{turmaId}")
     public TurmaDTO findById (@PathVariable int turmaId) {
             return turmaService.findTurmaDTOById(turmaId);
         }
@@ -41,6 +41,12 @@ public class TurmaRestController {
     public ResponseEntity deletaTurma(@PathVariable int turmaId) {
         turmaService.deleteById(turmaId);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/turma")
+    public TurmaDTO atualizaTurma(@RequestBody TurmaDTO theTurma) {
+        turmaService.atualizaTurma(theTurma);
+        return theTurma;
     }
 }
 

@@ -1,6 +1,7 @@
 package br.com.hbsis.projetocursos.service;
 
 import br.com.hbsis.projetocursos.dao.TurmaRepository;
+import br.com.hbsis.projetocursos.entity.Professor;
 import br.com.hbsis.projetocursos.entity.Turma;
 import br.com.hbsis.projetocursos.entity.TurmaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,12 @@ import java.util.Optional;
 @Service
 public class TurmaServiceImpl implements TurmaService {
     private TurmaRepository turmaRepository;
+    private ProfessorService professorService;
 
     @Autowired
-    public TurmaServiceImpl(TurmaRepository theTurmaRepository) {
+    public TurmaServiceImpl(TurmaRepository theTurmaRepository, ProfessorService theProfessorService) {
         this.turmaRepository = theTurmaRepository;
+        this.professorService = theProfessorService;
     }
 
     @Override
@@ -49,12 +52,12 @@ public class TurmaServiceImpl implements TurmaService {
 
     @Override
     public TurmaDTO findTurmaDTOById(int theId) {
-        Optional<Turma> result = turmaRepository.findById(theId);
-        Turma turma = null;
+        Optional<Turma> optionalTurma = turmaRepository.findById(theId);
 
-        if(result.isPresent()) {
+        if(optionalTurma.isPresent()) {
+            Turma turma = optionalTurma.get();
             TurmaDTO turmaDTO = new TurmaDTO();
-            turmaDTO.transformTurmaIntoPojo(result.get());
+            turmaDTO = turmaDTO.transformTurmaIntoPojo(turma);
             return turmaDTO;
         }
 
@@ -62,7 +65,6 @@ public class TurmaServiceImpl implements TurmaService {
             throw new RuntimeException("Não foi possível encontrar a turma: " + theId);
         }
     }
-
 
     @Override
     public void save(Turma theTurma) {
@@ -76,9 +78,20 @@ public class TurmaServiceImpl implements TurmaService {
 
     @Override
     public void cadastrarTurma(TurmaDTO turmaDTO) {
-
-        Turma theTurma = turmaDTO.transformTurmaDTOIntoTurma(turmaDTO, 0);
+        Professor professor = professorService.findById(turmaDTO.getIdProfessor());
+        Turma theTurma = turmaDTO.transformTurmaDTOIntoTurma(turmaDTO, 0, professor);
         turmaRepository.save(theTurma);
+    }
+
+    @Override
+    public TurmaDTO atualizaTurma(TurmaDTO theTurmaDTO) {
+
+        Professor theProfessor = professorService.findById(theTurmaDTO.getIdProfessor());
+
+        Turma turma = theTurmaDTO.transformTurmaDTOIntoTurma(theTurmaDTO, theTurmaDTO.getNumeroAlunos(),theProfessor );
+        turmaRepository.save(turma);
+//        TurmaDTO turmaDTO = theTurmaDTO.transformTurmaIntoPojo(theAluno, theTurma);
+        return theTurmaDTO;
     }
 
 

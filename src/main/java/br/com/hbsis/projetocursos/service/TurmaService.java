@@ -14,4 +14,5 @@ public interface TurmaService {
     public void save(Turma theTurma);
     public void deleteById(int theId);
     public void cadastrarTurma(TurmaDTO turmaDTO);
+    public TurmaDTO atualizaTurma(TurmaDTO theTurma);
 }

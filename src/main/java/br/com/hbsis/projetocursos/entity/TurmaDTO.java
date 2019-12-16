@@ -12,9 +12,12 @@ public class TurmaDTO {
     private int id;
     private String nomeTurma;
     private String materia;
+    private Integer idProfessor;
+    private String nomeProfessor;
+    private int numeroAlunos;
 
 
-    public Turma transformTurmaDTOIntoTurma (TurmaDTO turmaDTO, Integer quantidadeAlunos) {
+    public Turma transformTurmaDTOIntoTurma (TurmaDTO turmaDTO, Integer quantidadeAlunos, Professor professor) {
 
 
         return Turma.builder()
@@ -22,6 +25,7 @@ public class TurmaDTO {
                 .materia(turmaDTO.getMateria())
                 .nomeTurma(turmaDTO.getNomeTurma())
                 .numeroAlunos(quantidadeAlunos)
+                .professor(professor)
                 .build();
     }
 
@@ -31,6 +35,9 @@ public class TurmaDTO {
                 .id(turma.getIdTurma())
                 .materia(turma.getMateria())
                 .nomeTurma(turma.getNomeTurma())
+                .idProfessor(turma.getProfessor().getIdProfessor())
+                .nomeProfessor(turma.getProfessor().getNomeProfessor())
+                .numeroAlunos(turma.getNumeroAlunos())
                 .build();
     }
 
