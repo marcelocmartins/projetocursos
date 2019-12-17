@@ -112,7 +112,19 @@ public class AlunoServiceImpl implements AlunoService {
 
 	@Override
 	public AlunoDTO atualizaAluno(AlunoDTO theAlunoDTO) {
+	    Aluno alunoOrigem = findById(theAlunoDTO.getId());
+	    Turma turmaOrigem = turmaService.findById(alunoOrigem.getTurma().getIdTurma());
 		Turma theTurma = turmaService.findById(theAlunoDTO.getTurmaDTO());
+
+        // Vê se a turma está sendo atualizada, caso seja, altera as quantidades dos alunos (PRECISA TESTAR)
+		if(turmaOrigem.getIdTurma() != theTurma.getIdTurma()) {
+            int numeroAlunosOrigem = turmaOrigem.getNumeroAlunos();
+            int numeroAlunosDestino = theTurma.getNumeroAlunos();
+            numeroAlunosOrigem -= 1;
+            numeroAlunosDestino += 1;
+            turmaOrigem.setNumeroAlunos(numeroAlunosOrigem);
+            theTurma.setNumeroAlunos(numeroAlunosDestino);
+        }
 
 		Aluno theAluno = theAlunoDTO.transformAlunoDTOIntoAluno(theAlunoDTO, theTurma);
 		theAluno.setIdAlunos(theAlunoDTO.getId());

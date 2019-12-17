@@ -11,4 +11,8 @@ public interface ProfessorService {
     public List<ProfessorDTO> findAll();
     public Professor findById(Integer theId);
     public ProfessorDTO findProfessorDTOById(Integer theId);
+    public void save(Professor theProfessor);
+    public void deleteById(int theId);
+    public void cadastrarProfessor(ProfessorDTO theProfessorDTO);
+    public ProfessorDTO atualizaProfessor(ProfessorDTO theProfessor);
 }

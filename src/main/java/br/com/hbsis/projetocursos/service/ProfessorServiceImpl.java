@@ -53,13 +53,36 @@ public class ProfessorServiceImpl implements ProfessorService {
         if(optionalTurma.isPresent()) {
             Professor professor = optionalTurma.get();
             ProfessorDTO professorDTO = new ProfessorDTO();
-            professorDTO.transformProfessorIntoProfessorDTO(professor);
+            professorDTO = professorDTO.transformProfessorIntoProfessorDTO(professor);
             return professorDTO;
         }
 
         else {
             throw new RuntimeException("Não foi possível encontrar o professor: " + theId);
         }
+    }
+
+    @Override
+    public void save(Professor theProfessor) {
+        professorRepository.save(theProfessor);
+    }
+
+    @Override
+    public void deleteById(int theId) {
+        professorRepository.deleteById(theId);
+    }
+
+    @Override
+    public void cadastrarProfessor(ProfessorDTO theProfessorDTO) {
+        Professor theProfessor = theProfessorDTO.transformProfessorDTOIntoProfessor(theProfessorDTO);
+        professorRepository.save(theProfessor);
+    }
+
+    @Override
+    public ProfessorDTO atualizaProfessor(ProfessorDTO theProfessorDTO) {
+        Professor theProfessor = theProfessorDTO.transformProfessorDTOIntoProfessor(theProfessorDTO);
+        professorRepository.save(theProfessor);
+        return theProfessorDTO;
     }
 }
 

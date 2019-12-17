@@ -22,4 +22,13 @@ public class ProfessorDTO
 				.nomeProfessor(professor.getNomeProfessor())
 				.build();
 	}
+
+	public Professor transformProfessorDTOIntoProfessor (ProfessorDTO professorDTO) {
+
+
+		return Professor.builder()
+				.idProfessor(professorDTO.getIdProfessor())
+				.nomeProfessor(professorDTO.getNomeProfessor())
+				.build();
+	}
 }

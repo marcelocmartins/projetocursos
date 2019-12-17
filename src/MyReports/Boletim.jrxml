@@ -48,7 +48,7 @@ where al.id_alunos = 2]]>
 	<title>
 		<band height="132" splitType="Stretch">
 			<image>
-				<reportElement x="456" y="0" width="99" height="132" uuid="97705585-a0b5-4ec7-86f3-ae10c220e6af"/>
+				<reportElement x="451" y="0" width="103" height="132" uuid="97705585-a0b5-4ec7-86f3-ae10c220e6af"/>
 				<imageExpression><![CDATA[$P{cherry}]]></imageExpression>
 			</image>
 			<frame>
@@ -62,7 +62,7 @@ where al.id_alunos = 2]]>
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
+				<reportElement mode="Opaque" x="0" y="95" width="451" height="36" forecolor="#000000" backcolor="#CC0000" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
 				<textField pattern="EEEEE dd MMMMM yyyy">
 					<reportElement x="307" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="5c3301e7-a737-4c59-8a2f-a6c79fd1adb8"/>
 					<textElement textAlignment="Right">
@@ -79,7 +79,7 @@ where al.id_alunos = 2]]>
 	<columnHeader>
 		<band height="47" splitType="Stretch">
 			<staticText>
-				<reportElement style="Column header" x="0" y="7" width="60" height="18" forecolor="#000000" uuid="49d8fd17-d10b-4fee-862d-6553d312440e">
+				<reportElement style="Column header" x="0" y="9" width="60" height="18" forecolor="#000000" uuid="49d8fd17-d10b-4fee-862d-6553d312440e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="52791375-3807-4c0e-bfa3-76141e4f443f"/>
 				</reportElement>
 				<textElement>
@@ -88,7 +88,7 @@ where al.id_alunos = 2]]>
 				<text><![CDATA[ID	]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="63" y="7" width="77" height="18" forecolor="#000000" uuid="72480dd3-046d-47ff-9155-3e37ad260dea">
+				<reportElement style="Column header" x="63" y="9" width="77" height="18" forecolor="#000000" uuid="72480dd3-046d-47ff-9155-3e37ad260dea">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="11bec47e-8d8c-4ccc-9862-990e8e339ea7"/>
 				</reportElement>
 				<textElement>
@@ -97,7 +97,7 @@ where al.id_alunos = 2]]>
 				<text><![CDATA[NOME]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="144" y="8" width="54" height="18" forecolor="#000000" uuid="8650d1fb-1cbd-4c02-a47d-e775c0670876">
+				<reportElement style="Column header" x="144" y="9" width="54" height="18" forecolor="#000000" uuid="8650d1fb-1cbd-4c02-a47d-e775c0670876">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dadb9747-a90d-43ac-b603-0bb81eaaa464"/>
 				</reportElement>
 				<textElement>
@@ -106,7 +106,7 @@ where al.id_alunos = 2]]>
 				<text><![CDATA[IDADE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="199" y="8" width="71" height="18" forecolor="#000000" uuid="f39064f9-c2ce-45a4-93b5-d3afe05c6762">
+				<reportElement style="Column header" x="199" y="9" width="71" height="18" forecolor="#000000" uuid="f39064f9-c2ce-45a4-93b5-d3afe05c6762">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b5b44ffb-0625-4a6b-9f3f-195493b0bb90"/>
 				</reportElement>
 				<textElement>
@@ -115,7 +115,7 @@ where al.id_alunos = 2]]>
 				<text><![CDATA[TURMA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="271" y="8" width="60" height="18" forecolor="#000000" uuid="3da746db-6b98-43e0-9cf5-c1a3fa497128">
+				<reportElement style="Column header" x="271" y="9" width="45" height="20" forecolor="#000000" uuid="3da746db-6b98-43e0-9cf5-c1a3fa497128">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b76b49f-ad37-419d-9ff3-90281e6a22e7"/>
 				</reportElement>
 				<textElement>
@@ -124,7 +124,7 @@ where al.id_alunos = 2]]>
 				<text><![CDATA[AV 1]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="331" y="8" width="60" height="18" forecolor="#000000" uuid="9626a26f-7b4b-43b2-8cbc-d3b3409e24e3">
+				<reportElement style="Column header" x="331" y="9" width="45" height="20" forecolor="#000000" uuid="9626a26f-7b4b-43b2-8cbc-d3b3409e24e3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b76b49f-ad37-419d-9ff3-90281e6a22e7"/>
 				</reportElement>
 				<textElement>
@@ -133,7 +133,7 @@ where al.id_alunos = 2]]>
 				<text><![CDATA[AV2]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="391" y="8" width="64" height="20" uuid="58b7892b-fe36-4cd4-8e31-109ed0af74b7"/>
+				<reportElement x="389" y="9" width="45" height="20" uuid="58b7892b-fe36-4cd4-8e31-109ed0af74b7"/>
 				<textElement>
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
@@ -146,7 +146,7 @@ where al.id_alunos = 2]]>
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="b50221b5-8254-440b-8c6f-1f0b138c9259"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="0" y="0" width="60" height="18" uuid="8c187a2b-e893-42e7-ad2a-e66c7cd1321a">
+					<reportElement style="Detail" positionType="Float" x="0" y="1" width="60" height="18" uuid="8c187a2b-e893-42e7-ad2a-e66c7cd1321a">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="52791375-3807-4c0e-bfa3-76141e4f443f"/>
 					</reportElement>
 					<textElement>
@@ -155,7 +155,7 @@ where al.id_alunos = 2]]>
 					<textFieldExpression><![CDATA[$P{id_alunos}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="64" y="0" width="76" height="18" uuid="8154637a-8d49-4df7-9469-fc6435fd40a6">
+					<reportElement style="Detail" positionType="Float" x="63" y="1" width="76" height="18" uuid="8154637a-8d49-4df7-9469-fc6435fd40a6">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="11bec47e-8d8c-4ccc-9862-990e8e339ea7"/>
 					</reportElement>
 					<textElement>
@@ -164,7 +164,7 @@ where al.id_alunos = 2]]>
 					<textFieldExpression><![CDATA[$P{nome}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="144" y="0" width="55" height="18" uuid="28ed95e6-2881-446e-bbed-6668e874cc99">
+					<reportElement style="Detail" positionType="Float" x="144" y="1" width="55" height="18" uuid="28ed95e6-2881-446e-bbed-6668e874cc99">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dadb9747-a90d-43ac-b603-0bb81eaaa464"/>
 					</reportElement>
 					<textElement>
@@ -173,7 +173,7 @@ where al.id_alunos = 2]]>
 					<textFieldExpression><![CDATA[$P{idade}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="197" y="0" width="73" height="18" uuid="cfcc4191-e884-458c-bfc2-0c7822b481da">
+					<reportElement style="Detail" positionType="Float" x="200" y="1" width="73" height="18" uuid="cfcc4191-e884-458c-bfc2-0c7822b481da">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b5b44ffb-0625-4a6b-9f3f-195493b0bb90"/>
 					</reportElement>
 					<textElement>
@@ -182,7 +182,7 @@ where al.id_alunos = 2]]>
 					<textFieldExpression><![CDATA[$P{id_turma}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="272" y="0" width="61" height="18" uuid="87caaa38-a6fa-4afa-aa99-86e0e24cc843">
+					<reportElement positionType="Float" x="278" y="1" width="59" height="18" uuid="87caaa38-a6fa-4afa-aa99-86e0e24cc843">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b76b49f-ad37-419d-9ff3-90281e6a22e7"/>
 					</reportElement>
 					<textElement>
@@ -191,7 +191,7 @@ where al.id_alunos = 2]]>
 					<textFieldExpression><![CDATA[$P{nota0}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="335" y="0" width="49" height="18" uuid="c4a4fbcc-2f83-45fd-ab11-d404e995e671">
+					<reportElement positionType="Float" x="334" y="1" width="51" height="18" uuid="c4a4fbcc-2f83-45fd-ab11-d404e995e671">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b76b49f-ad37-419d-9ff3-90281e6a22e7"/>
 					</reportElement>
 					<textElement>
@@ -200,7 +200,7 @@ where al.id_alunos = 2]]>
 					<textFieldExpression><![CDATA[$P{nota1}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="387" y="1" width="49" height="18" uuid="a2da8391-8396-4739-b76a-e85c71f53479">
+					<reportElement positionType="Float" x="391" y="1" width="49" height="18" uuid="a2da8391-8396-4739-b76a-e85c71f53479">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b76b49f-ad37-419d-9ff3-90281e6a22e7"/>
 					</reportElement>
 					<textElement>

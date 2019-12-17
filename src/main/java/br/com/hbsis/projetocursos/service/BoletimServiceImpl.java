@@ -24,7 +24,6 @@ public class BoletimServiceImpl implements BoletimService{
 	@Autowired
 	public BoletimServiceImpl(BoletimRepositoryImpl theBoletimRepository) {
 		this.boletimRepository= theBoletimRepository;
-		
 	}
 
 	@Override
@@ -43,7 +42,6 @@ public class BoletimServiceImpl implements BoletimService{
 		output.write(content);
 		output.flush();
 		output.close();
-
 	}
 
 	@Override
@@ -59,10 +57,12 @@ public class BoletimServiceImpl implements BoletimService{
 			String nota = String.valueOf(boletim.getNota());
 			notas.add(nota);
 		}
-
-		// LEMBRE-SE DE TROCAR OS ARRAYLISTS
-
 		return notas;
+	}
+
+	public void aplicarNota(double nota, int professorId, int alunoId, int boletimId) {
+
+
 	}
 
 
