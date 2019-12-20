@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.hbsis.projetocursos.dao.AlunoRepository;
-import br.com.hbsis.projetocursos.dao.BoletimRepositoryImpl;
 
 import javax.swing.text.html.Option;
 
@@ -21,7 +20,7 @@ public class AlunoServiceImpl implements AlunoService {
 
 	
 	@Autowired
-	public AlunoServiceImpl(AlunoRepository theAlunoRepository, BoletimService theBoletimRepository, TurmaService theTurmaService) {
+	public void AlunoServiceImpl(AlunoRepository theAlunoRepository, BoletimService theBoletimRepository, TurmaService theTurmaService) {
 		alunoRepository = theAlunoRepository;
 		boletimService = theBoletimRepository;
 		turmaService = theTurmaService;
@@ -107,6 +106,8 @@ public class AlunoServiceImpl implements AlunoService {
 	@Override
 	public void deletaAluno(int alunoId) {
 		Aluno aluno = findById(alunoId);
+		List<Boletim> boletinsDoAluno = boletimService.findBoletimByAlunoId(alunoId);
+		boletimService.deletaBoletins(boletinsDoAluno);
 		alunoRepository.delete(aluno);
 	}
 
@@ -116,7 +117,7 @@ public class AlunoServiceImpl implements AlunoService {
 	    Turma turmaOrigem = turmaService.findById(alunoOrigem.getTurma().getIdTurma());
 		Turma theTurma = turmaService.findById(theAlunoDTO.getTurmaDTO());
 
-        // Vê se a turma está sendo atualizada, caso seja, altera as quantidades dos alunos (PRECISA TESTAR)
+        // Vê se a turma está sendo atualizada, caso seja, altera as quantidades dos alunos
 		if(turmaOrigem.getIdTurma() != theTurma.getIdTurma()) {
             int numeroAlunosOrigem = turmaOrigem.getNumeroAlunos();
             int numeroAlunosDestino = theTurma.getNumeroAlunos();

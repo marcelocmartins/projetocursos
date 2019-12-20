@@ -1,11 +1,11 @@
 package br.com.hbsis.projetocursos.rest;
 
+import br.com.hbsis.projetocursos.entity.BoletimDTO;
+import br.com.hbsis.projetocursos.entity.TurmaDTO;
 import br.com.hbsis.projetocursos.service.JasperService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import br.com.hbsis.projetocursos.service.BoletimService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -32,5 +32,11 @@ public class BoletimRestController {
 	@GetMapping("/export/{alunoId}")
 	public void GenerateBoletim(HttpServletResponse response, @PathVariable("alunoId") Integer theId) throws Exception {
 		jasperService.generateBoletim(response, theId);
+	}
+
+	@PostMapping("/aplicar-nota")
+	public ResponseEntity aplicarNota(@RequestBody BoletimDTO boletimDTO) throws Exception {
+		boletimService.aplicarNota(boletimDTO);
+		return ResponseEntity.ok().build();
 	}
 }

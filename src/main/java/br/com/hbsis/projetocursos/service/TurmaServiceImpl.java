@@ -72,8 +72,15 @@ public class TurmaServiceImpl implements TurmaService {
     }
 
     @Override
-    public void deleteById(int theId) {
-        turmaRepository.deleteById(theId);
+    public void deleteById(int theId) throws Exception {
+        Turma turma = findById(theId);
+        if(turma.getNumeroAlunos() > 0) {
+            throw new Exception("Não é possível deletar a turma, pois ela tem alunos, remova os alunos da turma antes de deletá-la");
+        }
+
+        else {
+            turmaRepository.deleteById(theId);
+        }
     }
 
     @Override

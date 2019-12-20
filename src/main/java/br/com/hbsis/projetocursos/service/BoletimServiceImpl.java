@@ -5,13 +5,14 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import br.com.hbsis.projetocursos.entity.Boletim;
+import br.com.hbsis.projetocursos.dao.BoletimRepository;
+import br.com.hbsis.projetocursos.entity.*;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.hbsis.projetocursos.dao.BoletimRepositoryImpl;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,11 +20,17 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class BoletimServiceImpl implements BoletimService{
 	
-	private BoletimRepositoryImpl boletimRepository;
+	private BoletimRepository boletimRepository;
+	private AlunoService alunoService;
+	private ProfessorService professorService;
+	private TurmaService turmaService;
 	
 	@Autowired
-	public BoletimServiceImpl(BoletimRepositoryImpl theBoletimRepository) {
+	public void BoletimServiceImpl(BoletimRepository theBoletimRepository, AlunoService theAlunoService, ProfessorService theProfessorService, TurmaService theTurmaService) {
 		this.boletimRepository= theBoletimRepository;
+		this.alunoService = theAlunoService;
+		this.professorService = theProfessorService;
+		this.turmaService = theTurmaService;
 	}
 
 	@Override
@@ -46,6 +53,7 @@ public class BoletimServiceImpl implements BoletimService{
 
 	@Override
 	public List<Boletim> findBoletimByAlunoId(int alunoId) {
+
 		return boletimRepository.findBoletimByAlunoId(alunoId);
 	}
 
@@ -60,10 +68,56 @@ public class BoletimServiceImpl implements BoletimService{
 		return notas;
 	}
 
-	public void aplicarNota(double nota, int professorId, int alunoId, int boletimId) {
+	@Override
+	public void aplicarNota(BoletimDTO boletimDTO) throws Exception {
+		Aluno theAluno = alunoService.findById(boletimDTO.getAlunoId());
+		Professor theProfessor = professorService.findById(boletimDTO.getProfessorId());
+		Turma theTurma = turmaService.findById(boletimDTO.getTurmaId());
+		Boletim boletim = new Boletim();
 
+		List<Boletim> boletinsDoAluno = boletimRepository.findBoletimByAlunoeTurmaId(boletimDTO.getAlunoId(), boletimDTO.getTurmaId());
 
+		if(boletinsDoAluno.size() >= 3) {
+			throw new Exception("Todas as notas para esse aluno desse curso já foram preenchidas");
+		}
+
+		else {
+			boletim.setAluno(theAluno);
+			boletim.setProfessor(theProfessor);
+			boletim.setTurma(theTurma);
+			boletim.setNota(boletimDTO.getNota());
+
+			boletimRepository.save(boletim);
+		}
 	}
+
+	@Override
+	public Boletim findById(int theId) {
+		Optional<Boletim> result = boletimRepository.findById(theId);
+		Boletim boletim = null;
+
+		if(result.isPresent()) {
+			return boletim = result.get();
+		}
+		else {
+			throw new RuntimeException("Não foi possível achar o Boletim do ID: " + theId);
+		}
+	}
+
+	@Override
+	public void deletaBoletins(List<Boletim> boletins) {
+		for(Boletim boletim : boletins) {
+			Boletim theBoletim = findById(boletim.getIdBoletim());
+			boletimRepository.deleteById(theBoletim.getIdBoletim());
+		}
+	}
+
+	@Override
+	public void deletaBoletim(int boletimId) {
+		Boletim boletim = findById(boletimId);
+		boletimRepository.delete(boletim);
+	}
+
 
 
 }

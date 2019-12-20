@@ -38,7 +38,7 @@ public class TurmaRestController {
     }
 
     @DeleteMapping("/{turmaId}")
-    public ResponseEntity deletaTurma(@PathVariable int turmaId) {
+    public ResponseEntity deletaTurma(@PathVariable int turmaId) throws Exception {
         turmaService.deleteById(turmaId);
         return ResponseEntity.ok().build();
     }

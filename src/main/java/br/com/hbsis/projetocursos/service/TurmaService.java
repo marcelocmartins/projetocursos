@@ -12,7 +12,7 @@ public interface TurmaService {
     public TurmaDTO findTurmaDTOById(int theId);
     public Turma findById(int theId);
     public void save(Turma theTurma);
-    public void deleteById(int theId);
+    public void deleteById(int theId) throws Exception;
     public void cadastrarTurma(TurmaDTO turmaDTO);
     public TurmaDTO atualizaTurma(TurmaDTO theTurma);
 }

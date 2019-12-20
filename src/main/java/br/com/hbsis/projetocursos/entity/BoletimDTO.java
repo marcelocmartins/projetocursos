@@ -12,7 +12,10 @@ import lombok.*;
 public class BoletimDTO 
 {
 	private int id;
-	private float nota;
+	private double nota;
+	private int alunoId;
+	private int turmaId;
+	private int professorId;
 
 
 	public BoletimDTO transformBoletimIntoBoletimDTO(Boletim boletim) {
@@ -20,6 +23,9 @@ public class BoletimDTO
 		BoletimDTO boletimDTO = BoletimDTO.builder()
 				.id(boletim.getIdBoletim())
 				.nota(boletim.getNota())
+				.alunoId(boletim.getAluno().getIdAlunos())
+				.professorId(boletim.getProfessor().getIdProfessor())
+				.turmaId(boletim.getTurma().getIdTurma())
 				.build();
 
 		return boletimDTO;
