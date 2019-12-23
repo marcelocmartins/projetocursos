@@ -137,4 +137,17 @@ public class AlunoServiceImpl implements AlunoService {
 	@Override
 	public void save(Aluno aluno) {alunoRepository.save(aluno);
 	}
+
+	@Override
+    public List<AlunoDTO> findAlunosByTurmaId(int turmaId) {
+	    List<Aluno> alunos = alunoRepository.findAlunosByTurmaId(turmaId);
+	    List<AlunoDTO> alunosDTO = new ArrayList<>();
+	    for(Aluno aluno : alunos) {
+	        Turma turma = aluno.getTurma();
+	        AlunoDTO alunoDTO = new AlunoDTO();
+            alunoDTO = alunoDTO.transformAlunoIntoAlunoDTO(aluno, turma);
+            alunosDTO.add(alunoDTO);
+        }
+	    return alunosDTO;
+    }
 }

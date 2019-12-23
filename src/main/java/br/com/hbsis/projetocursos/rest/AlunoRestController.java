@@ -49,4 +49,9 @@ public class AlunoRestController {
 		alunoService.deletaAluno(alunoId);
 		return ResponseEntity.ok().build();
 	}
+
+	@GetMapping("turma/{turmaId}")
+	public List<AlunoDTO> findAlunosByTurmaId(@PathVariable int turmaId) {
+		return alunoService.findAlunosByTurmaId(turmaId);
+	}
 }

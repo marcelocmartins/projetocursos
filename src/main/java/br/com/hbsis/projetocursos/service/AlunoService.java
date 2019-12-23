@@ -17,4 +17,5 @@ public interface AlunoService
 	public void cadastraAluno(AlunoDTO theAluno);
 	public void deletaAluno(int alunoId);
 	public AlunoDTO atualizaAluno(AlunoDTO theAluno);
+	public List<AlunoDTO> findAlunosByTurmaId(int turmaId);
 }
